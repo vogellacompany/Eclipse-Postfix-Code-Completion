@@ -28,9 +28,11 @@ public class InnerExpressionResolver extends SimpleTemplateVariableResolver {
 		super(INNER_EXPRESSION_VAR, ""); // TODO Add description
 	}
 	
+	@Override
 	protected String resolve(TemplateContext context) {
-		if (!(context instanceof JavaStatementPostfixContext)) 
+		if (!(context instanceof JavaStatementPostfixContext)) {
 			return "";
+		}
 		
 		return ((JavaStatementPostfixContext)context).getAffectedStatement();
 	}

@@ -36,12 +36,14 @@ public class PostfixCompletionProposalComputer extends AbstractTemplateCompletio
 	@Override
 	protected TemplateEngine computeCompletionEngine(JavaContentAssistInvocationContext context) {
 		ICompilationUnit unit = context.getCompilationUnit();
-		if (unit == null)
+		if (unit == null) {
 			return null;
+		}
 
 		IJavaProject javaProject = unit.getJavaProject();
-		if (javaProject == null)
+		if (javaProject == null) {
 			return null;
+		}
 
 		CompletionContext coreContext = context.getCoreContext();
 		if (coreContext != null) {

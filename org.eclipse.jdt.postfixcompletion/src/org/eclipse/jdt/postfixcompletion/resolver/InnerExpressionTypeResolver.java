@@ -16,11 +16,11 @@ public class InnerExpressionTypeResolver extends SimpleTemplateVariableResolver 
 		super(INNER_EXPRESSION_TYPE_VAR, "Resolves to the type of the affected inner expression."); // TODO Export desc string to messages file //$NON-NLS-1$
 	}
 	
+	@Override
 	protected String resolve(TemplateContext context) {
-		if (!(context instanceof JavaStatementPostfixContext)) 
+		if (!(context instanceof JavaStatementPostfixContext)) {
 			return "";
-		
-		JavaStatementPostfixContext c = (JavaStatementPostfixContext) context;
+		}
 		
 		return ((JavaStatementPostfixContext)context).getInnerExpressionTypeSignature();
 	}

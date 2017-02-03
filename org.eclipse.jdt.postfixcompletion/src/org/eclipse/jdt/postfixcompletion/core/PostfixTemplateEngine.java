@@ -38,8 +38,9 @@ public class PostfixTemplateEngine extends TemplateEngine {
 	public void complete(ITextViewer viewer, int completionPosition, ICompilationUnit compilationUnit) {
 		IDocument document = viewer.getDocument();
 
-		if (!(getContextType() instanceof JavaStatementPostfixContextType))
+		if (!(getContextType() instanceof JavaStatementPostfixContextType)) {
 			return;
+		}
 
 		Point selection = viewer.getSelectedRange();
 

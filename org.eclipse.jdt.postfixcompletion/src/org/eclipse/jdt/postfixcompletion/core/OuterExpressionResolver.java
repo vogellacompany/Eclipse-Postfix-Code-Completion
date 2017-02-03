@@ -10,9 +10,11 @@ public class OuterExpressionResolver extends SimpleTemplateVariableResolver {
 		super("outer_expression", "");
 	}
 	
+	@Override
 	protected String resolve(TemplateContext context) {
-		if (!(context instanceof JavaStatementPostfixContext)) 
+		if (!(context instanceof JavaStatementPostfixContext)) {
 			return "";
+		}
 		
 		JavaStatementPostfixContext c = (JavaStatementPostfixContext) context;
 		

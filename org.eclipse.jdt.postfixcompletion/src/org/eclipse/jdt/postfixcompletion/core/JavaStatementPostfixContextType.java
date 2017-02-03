@@ -23,9 +23,6 @@ public class JavaStatementPostfixContextType extends AbstractJavaContextType {
 		initializeContextTypeResolvers();
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jdt.internal.corext.template.java.AbstractJavaContextType#initializeContext(org.eclipse.jdt.internal.corext.template.java.JavaContext)
-	 */
 	@Override
 	protected void initializeContext(JavaContext context) {
 		if (!getId().equals(JavaStatementPostfixContextType.ID_ALL)) { // a specific context must also allow the templates that work everywhere
@@ -33,17 +30,11 @@ public class JavaStatementPostfixContextType extends AbstractJavaContextType {
 		}
 	}
 	
-	/*
-	 * @see org.eclipse.jdt.internal.corext.template.java.CompilationUnitContextType#createContext(org.eclipse.jface.text.IDocument, int, int, org.eclipse.jdt.core.ICompilationUnit)
-	 */
 	@Override
 	public CompilationUnitContext createContext(IDocument document, int offset, int length, ICompilationUnit compilationUnit) {
 		return createContext(document, offset, length, compilationUnit, null, null);
 	}
 
-	/*
-	 * @see org.eclipse.jdt.internal.corext.template.java.CompilationUnitContextType#createContext(org.eclipse.jface.text.IDocument, org.eclipse.jface.text.Position, org.eclipse.jdt.core.ICompilationUnit)
-	 */
 	@Override
 	public CompilationUnitContext createContext(IDocument document, Position completionPosition, ICompilationUnit compilationUnit) {
 		return createContext(document, completionPosition.getOffset(), completionPosition.getLength(), compilationUnit);

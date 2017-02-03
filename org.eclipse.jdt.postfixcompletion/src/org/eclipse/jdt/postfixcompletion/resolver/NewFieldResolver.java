@@ -34,18 +34,16 @@ public class NewFieldResolver extends TemplateVariableResolver {
 		this.defaultType = defaultType;
 	}
 
-	/*
-	 * @see org.eclipse.jface.text.templates.TemplateVariableResolver#resolve(org.eclipse.jface.text.templates.TemplateVariable, org.eclipse.jface.text.templates.TemplateContext)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void resolve(TemplateVariable variable, TemplateContext context) {
 		List<String> params = variable.getVariableType().getParams();
 		String param;
-		if (params.size() == 0)
+		if (params.size() == 0) {
 			param = defaultType;
-		else
+		} else {
 			param = params.get(0);
+		}
 		
 		JavaStatementPostfixContext jc = (JavaStatementPostfixContext) context;
 		
@@ -151,8 +149,12 @@ public class NewFieldResolver extends TemplateVariableResolver {
 			int offset = temp.length();
 			boolean semiColonFound = false;
 			while (offset >= 0 && semiColonFound == false) {
-				if (temp.charAt(offset) == ' ' && semiColonFound) return te.getOffset() + offset;
-				if (temp.charAt(offset) == ';') semiColonFound = true;
+				if (temp.charAt(offset) == ' ' && semiColonFound) {
+					return te.getOffset() + offset;
+				}
+				if (temp.charAt(offset) == ';') {
+					semiColonFound = true;
+				}
 			}
 			
 		} catch (BadLocationException e) {

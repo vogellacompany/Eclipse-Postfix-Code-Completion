@@ -3,7 +3,6 @@ package org.eclipse.jdt.postfixcompletion.core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -122,8 +121,8 @@ public class JavaStatementPostfixContext extends JavaContext {
 	public String addImportGenericClass(String className) {
 		Pattern p = Pattern.compile("[a-zA-Z0-9$_\\.]+");
 		Matcher m = p.matcher(className);
-		List<String> classNames = new ArrayList<String>();
-		Map<String, String> classNameMapping = new HashMap<String, String>();
+		List<String> classNames = new ArrayList<>();
+		Map<String, String> classNameMapping = new HashMap<>();
 		while (m.find()) {
 			classNames.add(className.substring(m.start(), m.end()));
 		}
@@ -141,12 +140,7 @@ public class JavaStatementPostfixContext extends JavaContext {
 		 * 3. importing all class names and map the fully qualified identifier with the resolved identifier of the class
 		 * 4. replace the unique identifiers with the mapped values
 		 */
-		Collections.sort(classNames, new Comparator<String>() {
-			@Override
-			public int compare(String arg0, String arg1) {
-				return arg1.length() - arg0.length();
-			}
-		});
+		Collections.sort(classNames, (arg0, arg1) -> arg1.length() - arg0.length());
 		for (int i = 0; i < classNames.size(); i++) {
 			className = className.replace(classNames.get(i), ID_SEPARATOR + i + ID_SEPARATOR);
 			classNameMapping.put(classNames.get(i), addImport(classNames.get(i)));
@@ -173,14 +167,17 @@ public class JavaStatementPostfixContext extends JavaContext {
 	public boolean canEvaluate(Template template) {
 		
 		if (!template.getContextTypeId().equals(
-				JavaStatementPostfixContext.CONTEXT_TYPE_ID))
+				JavaStatementPostfixContext.CONTEXT_TYPE_ID)) {
 			return false;
+		}
 
-		if (fForceEvaluation)
+		if (fForceEvaluation) {
 			return true;
+		}
 		
-		if (selectedNode == null) // We can evaluate to true only if we have a valid inner expression
+		if (selectedNode == null) {
 			return false;
+		}
 		
 		if (template.getName().toLowerCase().startsWith(getPrefixKey().toLowerCase()) == false) {
 			return false;
@@ -212,7 +209,9 @@ public class JavaStatementPostfixContext extends JavaContext {
 	
 	private boolean arrayContains(Object[] array, Object o) {
 		for (Object a : array) {
-			if (a.equals(o)) return true;
+			if (a.equals(o)) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -407,11 +406,13 @@ public class JavaStatementPostfixContext extends JavaContext {
 	 */
 	public TextEdit addField(String type, String varName, boolean publicField, boolean staticField, boolean finalField, String value) {
 		
-		if (isReadOnly())
+		if (isReadOnly()) {
 			return null;
+		}
 
-		if (!domInitialized)
+		if (!domInitialized) {
 			initDomAST();
+		}
 		
 		boolean isStatic = isBodyStatic();
 		int modifiers = (!publicField) ? Modifier.PRIVATE : Modifier.PUBLIC;
@@ -424,7 +425,7 @@ public class JavaStatementPostfixContext extends JavaContext {
 		
 		ASTRewrite rewrite= ASTRewrite.create(parentDeclaration.getAST());
 		
-		VariableDeclarationFragment newDeclFrag = addFieldDeclaration(rewrite, parentDeclaration, modifiers, varName, type, value);
+		addFieldDeclaration(rewrite, parentDeclaration, modifiers, varName, type, value);
 
 		TextEdit te = rewrite.rewriteAST(getDocument(), null);
 		return te;
@@ -437,8 +438,9 @@ public class JavaStatementPostfixContext extends JavaContext {
 	}
 	
 	private void initDomAST() {
-		if (isReadOnly())
+		if (isReadOnly()) {
 			return;
+		}
 		
 		ASTParser parser= ASTParser.newParser(AST.JLS8);
 		parser.setSource(getCompilationUnit());
@@ -536,8 +538,7 @@ public class JavaStatementPostfixContext extends JavaContext {
                 if (typeArguments.length > 0) {
                     ParameterizedType type = ast.newParameterizedType(baseType);
                     List argNodes = type.typeArguments();
-                    for (int i = 0; i < typeArguments.length; i++) {
-                        String curr = typeArguments[i];
+                    for (String curr : typeArguments) {
                         if (containsNestedCapture(curr)) {
                             argNodes.add(ast.newWildcardType());
                         } else {
@@ -597,8 +598,9 @@ public class JavaStatementPostfixContext extends JavaContext {
 			namingConventions = NamingConventions.VK_INSTANCE_FIELD;
 		}
 		
-		if (project != null)
+		if (project != null) {
 			return StubUtility.getVariableNameSuggestions(namingConventions, project, type, dim, Arrays.asList(excludes), true);
+		}
 
 		return new String[] {Signature.getSimpleName(type).toLowerCase()};
 	}
