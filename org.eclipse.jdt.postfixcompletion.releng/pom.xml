@@ -7,21 +7,14 @@
 	<packaging>pom</packaging>
 	<name>Postfix code completion for Eclipse</name>
 	<properties>
-		<tycho-version>0.20.0</tycho-version>
-		<tycho.version>0.20.0</tycho.version>
-		<tycho-extras.version>0.20.0</tycho-extras.version>
+		<tycho-version>0.26.0</tycho-version>
+		<tycho-extras.version>0.27.0</tycho-extras.version>
 	</properties>
 	<repositories>
-		<!-- add Juno repository to resolve dependencies -->
 		<repository>
 			<id>Luna</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/luna/</url>
-		</repository>
-		<repository>
-			<id>Luna updates</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.4/</url>
+			<url>http://download.eclipse.org/releases/neon/</url>
 		</repository>
 	</repositories>
 	<build>
@@ -38,12 +31,6 @@
 	<modules>
 		<module>../org.eclipse.jdt.postfixcompletion</module>
 		<module>../org.eclipse.jdt.postfixcompletion.feature</module>
-		<module>
-			../luna/org.eclipse.jdt.postfixcompletion.luna.patch
-		</module>
-		<module>../luna/org.eclipse.jdt.core</module>
-		<module>../luna/org.eclipse.jdt.ui</module>
-		
 		<module>../org.eclipse.jdt.postfixcompletion.updateSite</module>
 	</modules>
 </project>

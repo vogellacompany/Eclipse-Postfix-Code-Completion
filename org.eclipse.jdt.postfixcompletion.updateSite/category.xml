@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.jdt.postfixcompletion.feature_0.0.3.qualifier.jar" id="org.eclipse.jdt.postfixcompletion.feature" version="0.0.3.qualifier">
+      <category name="postfix_completion"/>
+   </feature>
+   <category-def name="postfix_completion" label="Postfix completion"/>
+</site>
